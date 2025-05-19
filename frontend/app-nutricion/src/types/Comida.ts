@@ -3,10 +3,12 @@ export type TipoComida = 'ingrediente' | 'platillo';
 export interface Comida {
     id?: number;
     nombre: string;
-    tipo: TipoComida;
+    tipo: string;
     calorias: number;
     proteinas: number;
     carbohidratos: number;
     grasas: number;
-    descripcion?: string;
+    descripcion: string;
+    imagenUrl: string;
 }
+

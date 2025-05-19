@@ -18,4 +18,7 @@ public class Comida {
     private double carbohidratos;
     private double grasas;
     private String descripcion;
+    @Column(name = "imagen_url")
+    private String imagenUrl;
+
 }

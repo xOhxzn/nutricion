@@ -22,7 +22,7 @@ export default function ListaUsuarios() {
 
   return (
     <div className="mt-6 max-w-3xl mx-auto bg-white p-4 rounded shadow">
-      <h2 className="text-lg font-semibold mb-4">Usuarios Registrados</h2>
+      <h2 className="text-lg font-semibold mb-4 text-center">Usuarios Registrados</h2>
       <ul className="space-y-2">
         {usuarios.map(usuario => (
           <li key={usuario.id} className="flex justify-between items-center border-b pb-2">
