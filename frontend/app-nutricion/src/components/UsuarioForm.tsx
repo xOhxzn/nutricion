@@ -30,20 +30,47 @@ export default function UsuarioForm({ onAdd }: { onAdd: () => void }) {
     onAdd();
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-2 bg-white p-4 rounded shadow max-w-md mx-auto">
-      <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} className="w-full border p-2 rounded" required />
-      <input name="apellido" placeholder="Apellido" value={formData.apellido} onChange={handleChange} className="w-full border p-2 rounded" required />
-      <input name="edad" type="number" placeholder="Edad" value={formData.edad} onChange={handleChange} className="w-full border p-2 rounded" required />
-      <input name="peso" type="number" placeholder="Peso (kg)" value={formData.peso} onChange={handleChange} className="w-full border p-2 rounded" required />
-      <input name="altura" type="number" placeholder="Altura (cm)" value={formData.altura} onChange={handleChange} className="w-full border p-2 rounded" required />
-      <select name="meta" value={formData.meta} onChange={handleChange} className="w-full border p-2 rounded">
-        <option value="GANAR_MUSCULO">Ganar musculo</option>
-        <option value="BAJAR_PESO">Bajar peso</option>
-        <option value="GANAR_PESO">Ganar peso</option>
-        <option value="MANTENERSE">Mantenerse</option>
-      </select>
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Agregar Usuario</button>
-    </form>
-  );
+    return (
+        <form onSubmit={handleSubmit} className="space-y-3 bg-white p-6 rounded shadow max-w-md mx-auto mt-8">
+            <div>
+                <label className="block font-medium mb-1">Nombre</label>
+                <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Apellido</label>
+                <input name="apellido" placeholder="Apellido" value={formData.apellido} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Edad</label>
+                <input name="edad" type="number" placeholder="Edad" value={formData.edad} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Peso (kg)</label>
+                <input name="peso" type="number" placeholder="Peso" value={formData.peso} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Altura (cm)</label>
+                <input name="altura" type="number" placeholder="Altura" value={formData.altura} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Meta</label>
+                <select name="meta" value={formData.meta} onChange={handleChange} className="w-full border p-2 rounded">
+                    <option value="GANAR_MUSCULO">Ganar músculo</option>
+                    <option value="BAJAR_PESO">Bajar peso</option>
+                    <option value="GANAR_PESO">Ganar peso</option>
+                    <option value="MANTENERSE">Mantenerse</option>
+                </select>
+            </div>
+
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Agregar Usuario
+            </button>
+        </form>
+    );
+
 }
