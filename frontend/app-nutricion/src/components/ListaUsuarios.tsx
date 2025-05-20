@@ -16,7 +16,7 @@ export default function ListaUsuarios({ onEditar }: Props) {
     const navigate = useNavigate();
 
     /**
-     * Carga todaos los usuarios desde el backend y actualiza el estado local
+     *Carga todaos los usuarios desde el backend y actualiza el estado local
      */
     const cargarUsuarios = () => {
         fetch("http://localhost:8080/api/usuarios")
@@ -49,7 +49,7 @@ export default function ListaUsuarios({ onEditar }: Props) {
                     <li key={usuario.id} className="flex justify-between items-center py-3 gap-4">
                         <div>
                             <p className="font-semibold">
-                                {usuario.nombre} {usuario.apellido}
+                                {usuario.nombre} {usuario.apellido} ({usuario.sexo === "MASCULINO" ? "Hombre" : "Mujer"})
                             </p>
                             <p className="text-sm text-gray-700">
                                 Edad: {usuario.edad} años | Peso: {usuario.peso} kg | Altura: {usuario.altura} cm | Meta: {usuario.meta}

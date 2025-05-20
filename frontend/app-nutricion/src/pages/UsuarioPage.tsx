@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Usuario } from "../types/Usuario";
 
 /**
- *Pagina para la gestión de usuarios
+ *Pagina para la gestion de usuarios
  *se usan los componentes de formulario para crear/editar comidas y la lista de usuarios registrados
  */
 export default function UsuarioPage() {

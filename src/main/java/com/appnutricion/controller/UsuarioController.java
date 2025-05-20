@@ -74,4 +74,27 @@ public class UsuarioController {
         return service.actualizar(id, usuario);
     }
 
+
+    /**
+     *Calcula las calorias requeridas de un usuario existente por su id
+     * @param id identificador del usuario a actualizar
+     * @return cantidad de calorias que deberia consumir por dia
+     */
+    @GetMapping("/{id}/requerimiento")
+    public double requerimientoDiario(@PathVariable Long id) {
+        Usuario u = service.obtenerPorId(id).orElseThrow();
+        return service.calcularCaloriasRequeridas(u);
+    }
+
+    /**
+     *Calcula la porteina requerida de un usuario existente por su id
+     * @param id identificador del usuario a actualizar
+     * @return cantidad de proteina que deberia consumir por dia
+     */
+    @GetMapping("/{id}/proteina-requerida")
+    public double proteinaRequerida(@PathVariable Long id) {
+        Usuario u = service.obtenerPorId(id).orElseThrow();
+        return service.calcularProteinasRequeridas(u);
+    }
+
 }

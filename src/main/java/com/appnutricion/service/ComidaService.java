@@ -1,6 +1,7 @@
 package com.appnutricion.service;
 
 import com.appnutricion.model.Comida;
+import com.appnutricion.model.Usuario;
 import com.appnutricion.repository.ComidaRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,15 @@ public class ComidaService {
      */
     public List<Comida> obtenerTodas() {
         return repo.findAll();
+    }
+
+    /**
+     *Busca una comida por su id
+     * @param id identificador de la comida
+     * @return objeto Optional que contiene una comida o puede no contenerlo
+     */
+    public Optional<Comida> obtenerPorId(Long id) {
+        return repo.findById(id);
     }
 
     /**

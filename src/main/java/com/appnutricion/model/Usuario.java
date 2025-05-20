@@ -29,4 +29,23 @@ public class Usuario {
     public enum Meta {
         GANAR_MUSCULO, BAJAR_PESO, GANAR_PESO, MANTENERSE
     }
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Sexo sexo;
+
+    public enum Sexo {
+        MASCULINO,
+        FEMENINO
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+
+
 }

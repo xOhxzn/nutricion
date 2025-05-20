@@ -21,7 +21,8 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
         edad: 0,
         peso: 0,
         altura: 0,
-        meta: "GANAR_MUSCULO"
+        meta: "GANAR_MUSCULO",
+        sexo: "MASCULINO"
     });
 
     /**
@@ -38,7 +39,8 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
                 edad: 0,
                 peso: 0,
                 altura: 0,
-                meta: "GANAR_MUSCULO"
+                meta: "GANAR_MUSCULO",
+                sexo: "MASCULINO"
             });
         }
     }, [usuarioInicial]);
@@ -68,6 +70,7 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
             : "http://localhost:8080/api/usuarios";
 
         const method = usuario.id ? "PUT" : "POST";
+        console.log("Datos enviados:", usuario);
 
         await fetch(url, {
             method,
@@ -105,6 +108,10 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
                 <option value="BAJAR_PESO">Bajar peso</option>
                 <option value="GANAR_PESO">Ganar peso</option>
                 <option value="MANTENERSE">Mantenerse</option>
+            </select>
+            <select name="sexo" value={usuario.sexo} onChange={handleChange} className="w-full border p-2 rounded" required>
+                <option value="MASCULINO">Masculino</option>
+                <option value="FEMENINO">Femenino</option>
             </select>
 
             <div className="flex gap-3">

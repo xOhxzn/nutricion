@@ -4,7 +4,7 @@ import ListaComidas from "../components/ListaComidas";
 import ComidaForm from "../components/ComidaForm";
 
 /**
- *Pagina para la gestión de comidas
+ *Pagina para la gestion de comidas
  *se usan los componentes de formulario para crear/editar comidas y la lista de comidas registradas
  */
 export default function ComidaPage() {
