@@ -3,9 +3,14 @@ import ListaUsuarios from "../components/ListaUsuarios";
 import { useState } from "react";
 import { Usuario } from "../types/Usuario";
 
+/**
+ *Pagina para la gestión de usuarios
+ *se usan los componentes de formulario para crear/editar comidas y la lista de usuarios registrados
+ */
 export default function UsuarioPage() {
     const [refrescar, setRefrescar] = useState(false);
     const [usuarioEditando, setUsuarioEditando] = useState<Usuario | undefined>(undefined);
+
 
     const recargar = () => setRefrescar(prev => !prev);
 

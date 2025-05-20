@@ -7,6 +7,13 @@ interface Props {
     onCancelEdit?: () => void;
 }
 
+/**
+ *Formulario para registrar o editar comidas
+ *tanto para el modo de creacion como de edicion
+ * @param onAdd callback que se ejecuta despues de guardar
+ * @param comidaInicial comida a editar
+ * @param onCancelEdit funcion para cancelar la edicion
+ */
 export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props) {
     const [comida, setComida] = useState<Comida>({
         nombre: "",
@@ -19,6 +26,10 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
         imagenUrl: ""
     });
 
+    /**
+     *Al cargar o cambiar la comida inicial, se llena el formulario con esos datos
+     *en dado caso no hay datos, se reinicia este a sus valores por defecto
+     */
     useEffect(() => {
         if (comidaInicial) {
             setComida(comidaInicial);
@@ -37,6 +48,10 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
     }, [comidaInicial]);
 
 
+    /**
+     *Maneja los cambios en los campos del form
+     * @param e evento de cambio del input
+     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setComida(prev => ({
@@ -45,6 +60,11 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
         }));
     };
 
+    /**
+     *Conecta los datos del formulario al backend
+     *Usa POST si es una nueva comida o PUT si es actualizar
+     * @param e evento de envio del form
+     */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -96,36 +116,36 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
 
             <div>
                 <label className="block font-medium mb-1">Calorías</label>
-                <input name="calorias" type="number" value={comida.calorias} onChange={handleChange} className="w-full border p-2 rounded" />
+                <input name="calorias" type="number" value={comida.calorias} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
                 <label className="block font-medium mb-1">Proteínas</label>
-                <input name="proteinas" type="number" value={comida.proteinas} onChange={handleChange} className="w-full border p-2 rounded" />
+                <input name="proteinas" type="number" value={comida.proteinas} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
                 <label className="block font-medium mb-1">Carbohidratos</label>
-                <input name="carbohidratos" type="number" value={comida.carbohidratos} onChange={handleChange} className="w-full border p-2 rounded" />
+                <input name="carbohidratos" type="number" value={comida.carbohidratos} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
                 <label className="block font-medium mb-1">Grasas</label>
-                <input name="grasas" type="number" value={comida.grasas} onChange={handleChange} className="w-full border p-2 rounded" />
+                <input name="grasas" type="number" value={comida.grasas} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
-                <label className="block font-medium mb-1">Descripción (opcional)</label>
-                <textarea name="descripcion" value={comida.descripcion} onChange={handleChange} className="w-full border p-2 rounded" />
+                <label className="block font-medium mb-1">Descripcion (opcional)</label>
+                <textarea name="descripcion" value={comida.descripcion} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
             <div>
                 <label className="block font-medium mb-1">URL de imagen (opcional)</label>
-                <input name="imagenUrl" value={comida.imagenUrl} onChange={handleChange} placeholder="https://..." className="w-full border p-2 rounded"/>
+                <input name="imagenUrl" value={comida.imagenUrl} onChange={handleChange} placeholder="https://..." className="w-full border p-2 rounded" required/>
             </div>
 
 
             <div className="flex gap-3">
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
                     {comida.id ? "Guardar cambios" : "Agregar Comida"}
                 </button>
                 {comida.id && onCancelEdit && (

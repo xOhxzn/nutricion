@@ -7,6 +7,13 @@ interface Props {
     onCancelEdit?: () => void;
 }
 
+/**
+ *Formulario para registrar o editar un usuario
+ *tanto para el modo de creacion como de edicion
+ * @param onAdd callback que se ejecuta despues de guardar
+ * @param usuarioInicial usuario a editar
+ * @param onCancelEdit función para cancelar la edicion
+ */
 export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Props) {
     const [usuario, setUsuario] = useState<Usuario>({
         nombre: "",
@@ -17,6 +24,10 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
         meta: "GANAR_MUSCULO"
     });
 
+    /**
+     *Al cargar o cambiar usuario inicial, se llena el formulario con esos datos
+     *en dado caso no hay datos, se reinicia este a sus valores por defecto
+     */
     useEffect(() => {
         if (usuarioInicial) {
             setUsuario(usuarioInicial);
@@ -32,6 +43,10 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
         }
     }, [usuarioInicial]);
 
+    /**
+     *Maneja los cambios en los campos del form
+     * @param e evento de cambio del input
+     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setUsuario(prev => ({
@@ -40,6 +55,11 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
         }));
     };
 
+    /**
+     *Conecta los datos del formulario al backend
+     *Usa POST si es una nueva comida o PUT si es actualizar
+     * @param e evento de envio del form
+     */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 

@@ -3,6 +3,10 @@ package com.appnutricion.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ *Entidad que representa a la comida
+ *informacion nutricional y de presentacion
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -11,6 +15,7 @@ public class Comida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
     private String tipo;
     private double calorias;

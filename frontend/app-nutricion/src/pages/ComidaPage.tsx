@@ -3,11 +3,18 @@ import { Comida } from "../types/Comida";
 import ListaComidas from "../components/ListaComidas";
 import ComidaForm from "../components/ComidaForm";
 
+/**
+ *Pagina para la gestión de comidas
+ *se usan los componentes de formulario para crear/editar comidas y la lista de comidas registradas
+ */
 export default function ComidaPage() {
     const [refrescar, setRefrescar] = useState(false);
     const [comidaParaEditar, setComidaParaEditar] = useState<Comida | null>(null);
 
     const recargar = () => setRefrescar(prev => !prev);
+    /**
+     *Cancela la edición y limpia la comida seleccionada.
+     */
     const cancelarEdicion = () => setComidaParaEditar(null); // <- ESTA es la clave
 
 

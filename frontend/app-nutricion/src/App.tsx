@@ -1,7 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import UsuarioPage from "./pages/UsuarioPage";
 import ComidaPage from "./pages/ComidaPage";
+import SeguimientoPage from "./pages/SeguimientoPage";
 
+
+/**
+ *Main
+ *nav principal y todas las rutas entre las paginas con react-router-dom
+ */
 export default function App() {
     return (
         <Router>
@@ -12,6 +18,7 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<UsuarioPage />} />
                 <Route path="/comidas" element={<ComidaPage />} />
+                <Route path="/seguimiento/:usuarioId" element={<SeguimientoPage />} />
             </Routes>
         </Router>
     );

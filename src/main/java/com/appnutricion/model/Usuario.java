@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 /**
- * Representa ak usuario con sus datos físicos y objetivo nutricional
+ *Entidad que representa al Usuario
+ *informacion de datos fisicos y metta
  */
 @Entity
 @Data
