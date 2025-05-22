@@ -72,7 +72,10 @@ export default function ListaComidasDelDia({ usuarioId, recarga, onEliminar }: U
                                 )}
                                 <div>
                                     <p className="font-semibold">
-                                        {r.comida.nombre} ({r.comida.tipo})
+                                        {r.comida.nombre}{" "}
+                                        {r.comida.tipo === "platillo" && r.comida.tipoPlatillo
+                                            ? `(${r.comida.tipoPlatillo.charAt(0).toUpperCase() + r.comida.tipoPlatillo.slice(1)})`
+                                            : `(${r.comida.tipo})`}
                                     </p>
                                     <p className="text-sm text-gray-700">
                                         Calorias: {r.calorias.toFixed(1)} kcal | Proteinas:{" "}

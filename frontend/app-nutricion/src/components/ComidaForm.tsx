@@ -18,6 +18,7 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
     const [comida, setComida] = useState<Comida>({
         nombre: "",
         tipo: "ingrediente",
+        tipoPlatillo: "desayuno",
         calorias: 0,
         proteinas: 0,
         carbohidratos: 0,
@@ -37,6 +38,7 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
             setComida({
                 nombre: "",
                 tipo: "ingrediente",
+                tipoPlatillo: "desayuno",
                 calorias: 0,
                 proteinas: 0,
                 carbohidratos: 0,
@@ -83,6 +85,7 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
         setComida({
             nombre: "",
             tipo: "ingrediente",
+            tipoPlatillo: "desayuno",
             calorias: 0,
             proteinas: 0,
             carbohidratos: 0,
@@ -113,18 +116,27 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
                     <option value="platillo">Platillo</option>
                 </select>
                 <p className="text-sm text-gray-500 mt-1">
-                    Se registrara {comida.tipo === "platillo" ? "por pieza(s)" : "en base a 100 gramos"}.
+                    Se registrará {comida.tipo === "platillo" ? "por pieza(s)" : "en base a 100 gramos"}.
                 </p>
-
             </div>
+            {comida.tipo === "platillo" && (
+                <div>
+                    <label className="block font-medium mb-1">Tipo de Platillo</label>
+                    <select name="tipoPlatillo" value={comida.tipoPlatillo} onChange={handleChange} className="w-full border p-2 rounded">
+                        <option value="desayuno">Desayuno</option>
+                        <option value="almuerzo">Almuerzo</option>
+                        <option value="cena">Cena</option>
+                    </select>
+                </div>
+            )}
 
             <div>
-                <label className="block font-medium mb-1">Calorias (kcal)</label>
+                <label className="block font-medium mb-1">Calorías (kcal)</label>
                 <input name="calorias" type="number" value={comida.calorias} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
-                <label className="block font-medium mb-1">Proteinas (g)</label>
+                <label className="block font-medium mb-1">Proteínas (g)</label>
                 <input name="proteinas" type="number" value={comida.proteinas} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
@@ -139,14 +151,14 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
             </div>
 
             <div>
-                <label className="block font-medium mb-1">{comida.tipo === "platillo" ? "Receta" : "Descripcion (opcional)"}</label>
+                <label className="block font-medium mb-1">{comida.tipo === "platillo" ? "Receta" : "Descripción (opcional)"}</label>
                 <textarea name="descripcion" value={comida.descripcion} onChange={handleChange} className="w-full border p-2 rounded"/>
             </div>
+
             <div>
                 <label className="block font-medium mb-1">URL de imagen (opcional)</label>
                 <input name="imagenUrl" value={comida.imagenUrl} onChange={handleChange} placeholder="https://..." className="w-full border p-2 rounded" required/>
             </div>
-
 
             <div className="flex gap-3">
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">

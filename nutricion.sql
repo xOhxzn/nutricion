@@ -21,7 +21,9 @@ CREATE TABLE comida (
     carbohidratos DOUBLE PRECISION NOT NULL,
     grasas DOUBLE PRECISION NOT NULL,
     tipo TEXT NOT NULL,
-    imagen_url TEXT
+    imagen_url TEXT.
+    tipo_platillo VARCHAR(20)
+    
 );
 
 -- Tabla REGISTRO_COMIDA

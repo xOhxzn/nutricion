@@ -26,4 +26,6 @@ public class Comida {
     @Column(name = "imagen_url")
     private String imagenUrl;
 
+    @Column(name = "tipo_platillo")
+    private String tipoPlatillo;
 }

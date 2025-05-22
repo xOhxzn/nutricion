@@ -1,9 +1,11 @@
 export type TipoComida = 'ingrediente' | 'platillo';
+export type TipoPlatillo = 'desayuno' | 'almuerzo' | 'cena';
 
 export interface Comida {
     id?: number;
     nombre: string;
-    tipo: string;
+    tipo: TipoComida;
+    tipoPlatillo?: TipoPlatillo;
     calorias: number;
     proteinas: number;
     carbohidratos: number;
@@ -11,4 +13,3 @@ export interface Comida {
     descripcion: string;
     imagenUrl: string;
 }
-

@@ -50,7 +50,13 @@ export default function ListaComidas({ onEditar }: { onEditar: (c: Comida) => vo
                                 />
                             )}
                             <div>
-                                <p className="font-semibold">{c.nombre} ({c.tipo})</p>
+                                <p className="font-semibold">
+                                    {c.nombre}{" "}
+                                    {c.tipo === "platillo" && c.tipoPlatillo
+                                        ? `(${c.tipoPlatillo.charAt(0).toUpperCase() + c.tipoPlatillo.slice(1)})`
+                                        : `(${c.tipo})`}
+                                </p>
+
                                 <p className="text-sm text-gray-700">
                                     Calorías: {c.calorias} kcal | Proteínas: {c.proteinas} g | Carbohidratos: {c.carbohidratos} g | Grasas: {c.grasas} g
                                 </p>
