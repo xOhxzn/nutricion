@@ -83,6 +83,11 @@ export default function ListaComidasDelDia({ usuarioId, recarga, onEliminar }: U
                                     <p className="text-sm text-gray-500 ">
                                         Cantidad: {r.cantidad} {r.tipo}
                                     </p>
+                                    {r.comida.tipo === "platillo" && r.comida.descripcion && (
+                                        <p className="text-sm text-gray-600 mt-1">
+                                            <strong>Receta:</strong> {r.comida.descripcion}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                             <div className="flex gap-2">

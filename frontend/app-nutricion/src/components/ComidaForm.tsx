@@ -112,31 +112,35 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
                     <option value="ingrediente">Ingrediente</option>
                     <option value="platillo">Platillo</option>
                 </select>
+                <p className="text-sm text-gray-500 mt-1">
+                    Se registrara {comida.tipo === "platillo" ? "por pieza(s)" : "en base a 100 gramos"}.
+                </p>
+
             </div>
 
             <div>
-                <label className="block font-medium mb-1">Calorías</label>
+                <label className="block font-medium mb-1">Calorias (kcal)</label>
                 <input name="calorias" type="number" value={comida.calorias} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
-                <label className="block font-medium mb-1">Proteínas</label>
+                <label className="block font-medium mb-1">Proteinas (g)</label>
                 <input name="proteinas" type="number" value={comida.proteinas} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
-                <label className="block font-medium mb-1">Carbohidratos</label>
+                <label className="block font-medium mb-1">Carbohidratos (g)</label>
                 <input name="carbohidratos" type="number" value={comida.carbohidratos} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
-                <label className="block font-medium mb-1">Grasas</label>
+                <label className="block font-medium mb-1">Grasas (g)</label>
                 <input name="grasas" type="number" value={comida.grasas} onChange={handleChange} className="w-full border p-2 rounded" required/>
             </div>
 
             <div>
-                <label className="block font-medium mb-1">Descripcion (opcional)</label>
-                <textarea name="descripcion" value={comida.descripcion} onChange={handleChange} className="w-full border p-2 rounded" required/>
+                <label className="block font-medium mb-1">{comida.tipo === "platillo" ? "Receta" : "Descripcion (opcional)"}</label>
+                <textarea name="descripcion" value={comida.descripcion} onChange={handleChange} className="w-full border p-2 rounded"/>
             </div>
             <div>
                 <label className="block font-medium mb-1">URL de imagen (opcional)</label>

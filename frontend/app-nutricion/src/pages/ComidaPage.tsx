@@ -13,7 +13,7 @@ export default function ComidaPage() {
 
     const recargar = () => setRefrescar(prev => !prev);
     /**
-     *Cancela la edición y limpia la comida seleccionada.
+     *Cancela la edición y limpia la comida seleccionada
      */
     const cancelarEdicion = () => setComidaParaEditar(null); // <- ESTA es la clave
 

@@ -19,7 +19,7 @@ export default function ListaComidas({ onEditar }: { onEditar: (c: Comida) => vo
     };
 
     /**
-     *Elimina una comida del backend por su ID y vuelve a llamar a cargar la lista
+     *Elimina una comida del backend por su id y vuelve a llamar a cargar la lista
      * @param id identificador de la comida a eliminar
      */
     const eliminar = async (id?: number) => {
@@ -54,19 +54,18 @@ export default function ListaComidas({ onEditar }: { onEditar: (c: Comida) => vo
                                 <p className="text-sm text-gray-700">
                                     Calorías: {c.calorias} kcal | Proteínas: {c.proteinas} g | Carbohidratos: {c.carbohidratos} g | Grasas: {c.grasas} g
                                 </p>
+                                {c.tipo === "platillo" && c.descripcion && (
+                                    <p className="text-sm text-gray-600 mt-1">
+                                        <strong>Receta:</strong> {c.descripcion}
+                                    </p>
+                                )}
                             </div>
                         </div>
                         <div className="flex gap-2">
-                            <button
-                                onClick={() => onEditar(c)}
-                                className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition"
-                            >
+                            <button onClick={() => onEditar(c)} className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
                                 Editar
                             </button>
-                            <button
-                                onClick={() => eliminar(c.id)}
-                                className="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition"
-                            >
+                            <button onClick={() => eliminar(c.id)} className="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">
                                 Eliminar
                             </button>
 

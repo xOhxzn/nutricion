@@ -25,7 +25,7 @@ export default function ListaUsuarios({ onEditar }: Props) {
     };
 
     /**
-     *Elimina un usuario del backend por su ID y vuelve a llamar a cargar la lista
+     *Elimina un usuario del backend por su id y vuelve a llamar a cargar la lista
      * @param id identificador de la comida a eliminar
      */
     const eliminar = async (id?: number) => {

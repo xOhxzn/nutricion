@@ -46,7 +46,7 @@ export default function SeguimientoPage() {
         setRequerido({ calorias: cal, proteinas: prot });
 
         //Registros dia hoy
-        const hoy = new Date().toLocaleDateString('en-CA'); //formato YYYY-MM-DD
+        const hoy = new Date().toLocaleDateString('en-CA'); // <- formato YYYY-MM-DD
         const registrossComida: RegistroComida[] = await fetch(`http://localhost:8080/api/registro-comida/${usuarioId}/fecha?fecha=${hoy}`).then(res => res.json());
         console.log("Registros sin manejar ---", registrossComida);
 

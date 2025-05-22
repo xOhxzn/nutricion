@@ -70,7 +70,7 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
             : "http://localhost:8080/api/usuarios";
 
         const method = usuario.id ? "PUT" : "POST";
-        console.log("Datos enviados:", usuario);
+        console.log("Datos -- ", usuario);
 
         await fetch(url, {
             method,
