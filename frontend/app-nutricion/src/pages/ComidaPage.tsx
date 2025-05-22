@@ -21,17 +21,8 @@ export default function ComidaPage() {
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
             <h1 className="text-2xl font-bold mb-4 text-center">Gestion de Comidas</h1>
-
-            <ComidaForm
-                onAdd={recargar}
-                comidaInicial={comidaParaEditar || undefined}
-                onCancelEdit={cancelarEdicion}
-            />
-
-            <ListaComidas
-                key={String(refrescar)}
-                onEditar={setComidaParaEditar}
-            />
+            <ComidaForm onAdd={recargar} comidaInicial={comidaParaEditar || undefined} onCancelEdit={cancelarEdicion}/>
+            <ListaComidas key={String(refrescar)} onEditar={setComidaParaEditar}/>
         </div>
     );
 }

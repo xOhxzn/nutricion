@@ -56,22 +56,13 @@ export default function ListaUsuarios({ onEditar }: Props) {
                             </p>
                         </div>
                         <div className="flex gap-2">
-                            <button
-                                onClick={() => onEditar(usuario)}
-                                className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition"
-                            >
+                            <button onClick={() => onEditar(usuario)} className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
                                 Editar
                             </button>
-                            <button
-                                onClick={() => eliminar(usuario.id)}
-                                className="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition"
-                            >
+                            <button onClick={() => eliminar(usuario.id)} className="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">
                                 Eliminar
                             </button>
-                            <button
-                                onClick={() => navigate(`/seguimiento/${usuario.id}`)}
-                                className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition"
-                            >
+                            <button onClick={() => navigate(`/seguimiento/${usuario.id}`)} className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition">
                                 Comenzar seguimiento
                             </button>
                         </div>

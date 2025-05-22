@@ -97,33 +97,55 @@ export default function UsuarioForm({ onAdd, usuarioInicial, onCancelEdit }: Pro
                 {usuario.id ? "Editar Usuario" : "Agregar Usuario"}
             </h2>
 
-            <input name="nombre" placeholder="Nombre" value={usuario.nombre} onChange={handleChange} className="w-full border p-2 rounded" required />
-            <input name="apellido" placeholder="Apellido" value={usuario.apellido} onChange={handleChange} className="w-full border p-2 rounded" required />
-            <input name="edad" type="number" placeholder="Edad" value={usuario.edad} onChange={handleChange} className="w-full border p-2 rounded" required />
-            <input name="peso" type="number" placeholder="Peso (kg)" value={usuario.peso} onChange={handleChange} className="w-full border p-2 rounded" required />
-            <input name="altura" type="number" placeholder="Altura (cm)" value={usuario.altura} onChange={handleChange} className="w-full border p-2 rounded" required />
+            <div>
+                <label className="block font-medium mb-1">Nombre</label>
+                <input name="nombre" value={usuario.nombre} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
 
-            <select name="meta" value={usuario.meta} onChange={handleChange} className="w-full border p-2 rounded">
-                <option value="GANAR_MUSCULO">Ganar músculo</option>
-                <option value="BAJAR_PESO">Bajar peso</option>
-                <option value="GANAR_PESO">Ganar peso</option>
-                <option value="MANTENERSE">Mantenerse</option>
-            </select>
-            <select name="sexo" value={usuario.sexo} onChange={handleChange} className="w-full border p-2 rounded" required>
-                <option value="MASCULINO">Masculino</option>
-                <option value="FEMENINO">Femenino</option>
-            </select>
+            <div>
+                <label className="block font-medium mb-1">Apellido</label>
+                <input name="apellido" value={usuario.apellido} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Edad</label>
+                <input name="edad" type="number" value={usuario.edad} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Peso (kg)</label>
+                <input name="peso" type="number" value={usuario.peso} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Altura (cm)</label>
+                <input name="altura" type="number" value={usuario.altura} onChange={handleChange} className="w-full border p-2 rounded" required />
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Meta</label>
+                <select name="meta" value={usuario.meta} onChange={handleChange} className="w-full border p-2 rounded">
+                    <option value="GANAR_MUSCULO">Ganar musculo</option>
+                    <option value="BAJAR_PESO">Bajar peso</option>
+                    <option value="GANAR_PESO">Ganar peso</option>
+                    <option value="MANTENERSE">Mantenerse</option>
+                </select>
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Sexo</label>
+                <select name="sexo" value={usuario.sexo} onChange={handleChange} className="w-full border p-2 rounded" required>
+                    <option value="MASCULINO">Masculino</option>
+                    <option value="FEMENINO">Femenino</option>
+                </select>
+            </div>
 
             <div className="flex gap-3">
                 <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                     {usuario.id ? "Guardar cambios" : "Agregar Usuario"}
                 </button>
                 {usuario.id && onCancelEdit && (
-                    <button
-                        type="button"
-                        onClick={onCancelEdit}
-                        className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-                    >
+                    <button type="button" onClick={onCancelEdit} className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
                         Cancelar
                     </button>
                 )}
