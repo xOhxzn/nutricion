@@ -98,6 +98,7 @@ public class RegistroComidaService {
         List<Comida> desayunos = comidaRepo.findByTipoPlatillo("desayuno");
         List<Comida> almuerzos = comidaRepo.findByTipoPlatillo("almuerzo");
         List<Comida> cenas = comidaRepo.findByTipoPlatillo("cena");
+        List<Comida> snacks = comidaRepo.findByTipoPlatillo("snack");
 
         //primero se verifica si hay al menos una comida de cada tipo, si no retorna una lista vacia y el mensaje
         if (desayunos.isEmpty() || almuerzos.isEmpty() || cenas.isEmpty()) {
@@ -141,6 +142,9 @@ public class RegistroComidaService {
 
         //Crea y guardar registros de comida para las 3 comidas seleccionadas
         List<RegistroComida> registros = new ArrayList<>();
+        double acumCal = 0;
+        double acumPro = 0;
+
         for (Comida comida : mejorCombo) {
             RegistroComida registro = new RegistroComida();
             registro.setUsuario(usuario);
@@ -153,9 +157,59 @@ public class RegistroComidaService {
             registro.setCarbohidratos(comida.getCarbohidratos());
             registro.setGrasas(comida.getGrasas());
 
+            acumCal += comida.getCalorias();
+            acumPro += comida.getProteinas();
+
             registros.add(repo.save(registro));
         }
-        //Si hay regsitrtos los retorna
+        //primero se verifica si hay al menos un snack agregado si no pasa
+        if (!snacks.isEmpty()) {
+            int snacksAgregados = 0;
+
+            //Intentar agregar hasta 2 snacks si aun faltan calorias o proteinas
+            while (snacksAgregados < 2) {
+                Comida mejorSnack = null;
+                double mejorAporte = 0;
+
+                for (Comida snack : snacks) {
+                    double nuevaCal = acumCal + snack.getCalorias();
+                    double nuevaProt = acumPro + snack.getProteinas();
+
+                    //Calcula mejora si se agregara este snack
+                    double difActual = Math.abs(caloriasMeta - acumCal) + Math.abs(proteinasMeta - acumPro);
+                    double difNueva = Math.abs(caloriasMeta - nuevaCal) + Math.abs(proteinasMeta - nuevaProt);
+
+                    double mejora = difActual - difNueva;
+
+                    if (mejora > mejorAporte) {
+                        mejorAporte = mejora;
+                        mejorSnack = snack;
+                    }
+                }
+
+                //Si ningun snack mejora la dieta, salimos
+                if (mejorSnack == null || mejorAporte <= 0) break;
+
+                //Crea y guardar registros de los snacks
+                RegistroComida snackRegistro = new RegistroComida();
+                snackRegistro.setUsuario(usuario);
+                snackRegistro.setComida(mejorSnack);
+                snackRegistro.setCantidad(1);
+                snackRegistro.setTipo("piezas");
+                snackRegistro.setFecha(LocalDate.now());
+                snackRegistro.setCalorias(mejorSnack.getCalorias());
+                snackRegistro.setProteinas(mejorSnack.getProteinas());
+                snackRegistro.setCarbohidratos(mejorSnack.getCarbohidratos());
+                snackRegistro.setGrasas(mejorSnack.getGrasas());
+
+                acumCal += mejorSnack.getCalorias();
+                acumPro += mejorSnack.getProteinas();
+
+                registros.add(repo.save(snackRegistro));
+                snacksAgregados++;
+            }
+            //Si hay regsitrtos los retorna
+        }
         return registros;
     }
 

@@ -1,5 +1,5 @@
 export type TipoComida = 'ingrediente' | 'platillo';
-export type TipoPlatillo = 'desayuno' | 'almuerzo' | 'cena';
+export type TipoPlatillo = 'desayuno' | 'almuerzo' | 'cena' | 'snack';
 
 export interface Comida {
     id?: number;

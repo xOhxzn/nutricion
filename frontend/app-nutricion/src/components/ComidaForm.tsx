@@ -126,6 +126,7 @@ export default function ComidaForm({ onAdd, comidaInicial, onCancelEdit }: Props
                         <option value="desayuno">Desayuno</option>
                         <option value="almuerzo">Almuerzo</option>
                         <option value="cena">Cena</option>
+                        <option value="snack">Snack</option>
                     </select>
                 </div>
             )}
