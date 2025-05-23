@@ -7,6 +7,7 @@ import com.appnutricion.repository.ComidaRepository;
 import com.appnutricion.repository.RegistroComidaRepository;
 import com.appnutricion.repository.UsuarioRepository;
 import com.appnutricion.service.RegistroComidaService;
+import com.appnutricion.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,8 @@ public class RegistroComidaServiceTest {
     private UsuarioRepository usuarioRepo;
     private ComidaRepository comidaRepo;
     private RegistroComidaService service;
+    private UsuarioService usuarioService;
+
 
     /**
      *Configura el entorno antes de cada prueba
@@ -37,7 +40,8 @@ public class RegistroComidaServiceTest {
         registroRepo = mock(RegistroComidaRepository.class);
         usuarioRepo = mock(UsuarioRepository.class);
         comidaRepo = mock(ComidaRepository.class);
-        service = new RegistroComidaService(registroRepo, usuarioRepo, comidaRepo);
+        usuarioService = mock(UsuarioService.class);
+        service = new RegistroComidaService(registroRepo, usuarioRepo, comidaRepo, usuarioService);
     }
 
     /**
@@ -47,7 +51,7 @@ public class RegistroComidaServiceTest {
     @Test
     void testRegistrarComidaConGramos() {
         Usuario usuario = new Usuario(1L, "Johan", "Rodriguez", 19, 62.0, 182, Usuario.Meta.GANAR_MUSCULO, Usuario.Sexo.MASCULINO);
-        Comida comida = new Comida(1L, "Atun", "ingrediente", 120, 30, 0, 6.6, "Atun Lata", null);
+        Comida comida = new Comida(1L, "Atun", "ingrediente", 120, 30, 0, 6.6, "Atun Lata", null, "desayuno");
         RegistroComida registro = new RegistroComida();
         registro.setUsuario(usuario);
         registro.setComida(comida);
@@ -72,7 +76,7 @@ public class RegistroComidaServiceTest {
     @Test
     void testRegistrarComidaConPiezas() {
         Usuario usuario = new Usuario(1L, "Johan", "Rodriguez", 19, 62.0, 182, Usuario.Meta.GANAR_MUSCULO, Usuario.Sexo.MASCULINO);
-        Comida comida = new Comida(2L, "cereal con leche", "platillo", 250, 8, 42.4, 11.88, "Bowl de cereal con leche", null);
+        Comida comida = new Comida(2L, "cereal con leche", "platillo", 250, 8, 42.4, 11.88, "Bowl de cereal con leche", null, "desayuno");
         RegistroComida registro = new RegistroComida();
         registro.setUsuario(usuario);
         registro.setComida(comida);

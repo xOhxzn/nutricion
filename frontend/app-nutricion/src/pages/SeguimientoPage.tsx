@@ -25,6 +25,8 @@ export default function SeguimientoPage() {
         grasas: 0,
     });
     const [recarga, setRecarga] = useState(false);
+    const [mensaje, setMensaje] = useState<string | null>(null);
+
 
     /**
      *Activa la recarga de datos, usado despuyes de registrar o elimnar una commida para que no tenga que refrescar pagina
@@ -68,6 +70,30 @@ export default function SeguimientoPage() {
         console.log("Registros --", registrossComida);
 
     };
+
+
+    /**
+     *Manda una query al backend para generar automaticamente una combinación
+     *si no se encuentra una combinacion adecuada, muestra un mensaje, si se genera, recarga los datos en pantalla grafica y la lista de comida
+     */
+    const generarOptima = async () => {
+        const res = await fetch(`http://localhost:8080/api/registro-comida/${usuarioId}/generar-optimo`, {
+            method: "POST"
+        });
+        const data = await res.json();
+
+        if (data.length === 0) {
+            setMensaje("No se encontró una dieta específica acorde a tus requerimientos.");
+            // Oculta el mensaje después de 5 segundos
+            setTimeout(() => setMensaje(null), 5000);
+        } else {
+            setMensaje(null);
+            recargar();
+        }
+    };
+
+
+
 
     /**
      *carga automaticametee los datos
@@ -136,6 +162,14 @@ export default function SeguimientoPage() {
                 <p><strong>Proteínas:</strong> {diario.proteinas} / {requerido.proteinas} g</p>
                 <p><strong>Carbohidratos:</strong> {diario.carbohidratos} g</p>
                 <p><strong>Grasas:</strong> {diario.grasas} g</p>
+            </div>
+            <div className="text-center mb-6">
+                <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition" onClick={generarOptima}>
+                    Generar comidas optimizadas
+                </button>
+                {mensaje && (
+                    <p className="mt-3 text-red-500 font-semibold">{mensaje}</p>
+                )}
             </div>
 
             <AgregarComidaForm usuarioId={parseInt(usuarioId!)} onRegistrada={recargar} />

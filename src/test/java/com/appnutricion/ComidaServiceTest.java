@@ -36,7 +36,7 @@ public class ComidaServiceTest {
      */
     @Test
     void testGuardarComida() {
-        Comida comida = new Comida(1L, "Atun", "ingrediente", 120, 30, 0, 6.6, "Atun Lata", null);
+        Comida comida = new Comida(1L, "Atun", "ingrediente", 120, 30, 0, 6.6, "Atun Lata", null, null);
         when(repo.save(comida)).thenReturn(comida);
         assertEquals("Atun", service.guardar(comida).getNombre());
     }
@@ -47,7 +47,7 @@ public class ComidaServiceTest {
      */
     @Test
     void testObtenerPorId() {
-        Comida comida = new Comida(1L, "Atun", "ingrediente", 120, 30, 0, 6.6, "Atun Lata", null);
+        Comida comida = new Comida(1L, "Atun", "ingrediente", 120, 30, 0, 6.6, "Atun Lata", null, null);
         when(repo.findById(1L)).thenReturn(Optional.of(comida));
         assertTrue(service.obtenerPorId(1L).isPresent());
     }

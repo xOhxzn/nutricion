@@ -54,4 +54,11 @@ public class RegistroComidaController {
     public void eliminar(@PathVariable Long id) {
         service.eliminar(id);
     }
+
+
+    @PostMapping("/{usuarioId}/generar-optimo")
+    public List<RegistroComida> generarOptimos(@PathVariable Long usuarioId) {
+        return service.generarComidasOptimas(usuarioId);
+    }
+
 }

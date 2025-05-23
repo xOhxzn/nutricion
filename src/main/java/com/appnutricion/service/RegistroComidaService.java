@@ -9,6 +9,7 @@ import com.appnutricion.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public class RegistroComidaService {
     private final RegistroComidaRepository repo;
     private final UsuarioRepository usuarioRepo;
     private final ComidaRepository comidaRepo;
+    private final UsuarioService usuarioService;
+
 
     /**
      *Constructor que inyecta el repositorio de RegistroComida, Uusario y Comidas
@@ -28,10 +31,11 @@ public class RegistroComidaService {
      * @param usuarioRepo instancia del repositorio UsuarioRepository
      * @param comidaRepo instancia del repositorio ComidaRepository
      */
-    public RegistroComidaService(RegistroComidaRepository repo, UsuarioRepository usuarioRepo, ComidaRepository comidaRepo) {
+    public RegistroComidaService(RegistroComidaRepository repo, UsuarioRepository usuarioRepo, ComidaRepository comidaRepo, UsuarioService usuarioService) {
         this.repo = repo;
         this.usuarioRepo = usuarioRepo;
         this.comidaRepo = comidaRepo;
+        this.usuarioService = usuarioService;
     }
 
 
@@ -75,5 +79,86 @@ public class RegistroComidaService {
     public void eliminar(Long id) {
         repo.deleteById(id);
     }
+
+
+
+    /**
+     *La logica mas granded de la aplicacion
+     *Generaa automatizamente una combunancion de desayuno, almuerzo y cena optimizados
+     *para aceercarse lo mas posible a los requerimmientos del  usuario (Prroteina y caloria)
+     * @param usuarioId identificador del usuario al quie se le genrara la dieta
+     * @return lista de RegistroComidas correspondientes a la mejor combinacion encontrada o si no hay, una lista vacia si no hay suficiente comidas
+     */
+    public List<RegistroComida> generarComidasOptimas(Long usuarioId) {
+        Usuario usuario = usuarioRepo.findById(usuarioId).orElseThrow();
+
+        double caloriasMeta = usuarioService.calcularCaloriasRequeridas(usuario);
+        double proteinasMeta = usuarioService.calcularProteinasRequeridas(usuario);
+
+        List<Comida> desayunos = comidaRepo.findByTipoPlatillo("desayuno");
+        List<Comida> almuerzos = comidaRepo.findByTipoPlatillo("almuerzo");
+        List<Comida> cenas = comidaRepo.findByTipoPlatillo("cena");
+
+        //primero se verifica si hay al menos una comida de cada tipo, si no retorna una lista vacia y el mensaje
+        if (desayunos.isEmpty() || almuerzos.isEmpty() || cenas.isEmpty()) {
+            System.out.println("No hay suficientes comidas para generar una dieta completa.");
+            return List.of();
+        }
+
+        //Lista para guardar todas las  posibles combinaciones de desayuno, almuerzo y cena
+        List<Comida[]> combinaciones = new ArrayList<>();
+        for (Comida des : desayunos) {
+            for (Comida alm : almuerzos) {
+                for (Comida cen : cenas) {
+                    combinaciones.add(new Comida[]{des, alm, cen});
+                }
+            }
+        }
+
+        Comida[] mejorCombo = null;
+        double menorDif = Double.MAX_VALUE;
+
+        //dentro de todas las combninaciones posibles
+        for (Comida[] comida : combinaciones) {
+            //se summman clorias y proteinas de las 3 commidas
+            double totalCalorias = comida[0].getCalorias() + comida[1].getCalorias() + comida[2].getCalorias();
+            double totalProteinas = comida[0].getProteinas() + comida[1].getProteinas() + comida[2].getProteinas();
+            // Calcula la diferencia total con al objetivo del usuario
+            double dif = Math.abs(caloriasMeta - totalCalorias) + Math.abs(proteinasMeta - totalProteinas);
+
+            // Si la combinacion iterada es de menor diferencia esta se guarda
+            if (dif < menorDif) {
+                menorDif = dif;
+                mejorCombo = comida;
+            }
+        }
+
+        //Si no se encuedntra una combinacion valida, se rettorna vacvio y el mmensaje
+        if (mejorCombo == null) {
+            System.out.println("No se encontro una dieta especifica acorde a tus requerimientos.");
+            return List.of();
+        }
+
+        //Crea y guardar registros de comida para las 3 comidas seleccionadas
+        List<RegistroComida> registros = new ArrayList<>();
+        for (Comida comida : mejorCombo) {
+            RegistroComida registro = new RegistroComida();
+            registro.setUsuario(usuario);
+            registro.setComida(comida);
+            registro.setCantidad(1);
+            registro.setTipo("piezas");
+            registro.setFecha(LocalDate.now());
+            registro.setCalorias(comida.getCalorias());
+            registro.setProteinas(comida.getProteinas());
+            registro.setCarbohidratos(comida.getCarbohidratos());
+            registro.setGrasas(comida.getGrasas());
+
+            registros.add(repo.save(registro));
+        }
+        //Si hay regsitrtos los retorna
+        return registros;
+    }
+
+
 }
 

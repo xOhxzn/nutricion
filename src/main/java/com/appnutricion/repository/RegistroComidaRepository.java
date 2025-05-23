@@ -11,5 +11,13 @@ import java.util.List;
  *da acceso a operaciones CRUD
  */
 public interface RegistroComidaRepository extends JpaRepository<RegistroComida, Long> {
+    /**
+     *Obtiene todos los registros de comida de un usuario para una fecha
+     * aun no ha sido usada pero puedo immplementarla para ver las demas dietas de los dias anteriores
+     * @param usuarioId identificador del usuario
+     * @param fecha     fecha a consultar
+     * @return lista de registros de comida del dia especifico
+     */
+    //Metodo extra para buscar po rusuario y fecha
     List<RegistroComida> findByUsuario_IdAndFecha(Long usuarioId, LocalDate fecha);
 }
